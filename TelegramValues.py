@@ -19,4 +19,19 @@ class TelegramValues(TelegramId):
         self.speed2: int = None
 
     def __str__(self):
-        return f"  time: {self.time}\n  channel_id: {self.channel_id}\n  channel_name: {self.channel_name}\n  bot_id: {self.bot_id}\n  bot_name: {self.bot_name}\n  device_id: {self.device_id}\n  device_name: {self.device_name}\n  level: {self.level}\n  raw_level: {self.raw_level}\n  distance: {self.distance}\n  t0: {self.t0}\n  t1: {self.t1}\n  v0: {self.v0}\n  v1: {self.v1}\n  snr: {self.snr}\n  rssi: {self.rssi}\n  snr_gw: {self.snr_gw}\n  rssi_gw: {self.rssi_gw}\n  speed1: {self.speed1}\n  speed2: {self.speed2}"
+        return (
+            f"{super().__str__()}"
+            f"  level: {self.level}\n"
+            f"  raw_level: {self.raw_level}\n"
+            f"  distance: {self.distance}\n"
+            f"  t0: {self.t0}\n"
+            f"  t1: {self.t1}\n"
+            f"  v0: {self.v0}\n"
+            f"  v1: {self.v1}\n"
+            f"  snr: {self.snr}\n"
+            f"  rssi: {self.rssi}\n"
+            f"  snr_gw: {self.snr_gw}\n"
+            f"  rssi_gw: {self.rssi_gw}\n"
+            f"  speed1: {self.speed1}\n"
+            f"  speed2: {self.speed2}"
+        )
