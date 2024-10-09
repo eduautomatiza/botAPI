@@ -5,15 +5,15 @@ from TelegramSetValues import TelegramSetValues
 from TelegramEvents import TelegramEvents
 
 
-SYMBOL_CHECK:str = "\u2705"  # CHECK MARK
-SYMBOL_WARNING:str = "\u26A0"  # warning
-SYMBOL_DOWN_ARROW:str = "\u2B07"  # down arrow
-SYMBOL_UP_ARROW:str = "\u2B06"  # up arrow
+SYMBOL_CHECK: str = "\u2705"  # CHECK MARK
+SYMBOL_WARNING: str = "\u26A0"  # warning
+SYMBOL_DOWN_ARROW: str = "\u2B07"  # down arrow
+SYMBOL_UP_ARROW: str = "\u2B06"  # up arrow
 
 
-EVENT_UNKNOWN:int = 0
-EVENT_LEVEL:int = 1
-EVENT_COMMUNICATION:int = 2
+EVENT_UNKNOWN: int = 0
+EVENT_LEVEL: int = 1
+EVENT_COMMUNICATION: int = 2
 
 
 class TelegramDecodePost(object):
@@ -78,19 +78,21 @@ class TelegramDecodePost(object):
                 if len(splitted) == 2:
                     device_name = splitted[0].strip()
                     text_of_alert = splitted[1].strip()
-                    if (
-                        len(device_name) > 0
-                        and len(text_of_alert) > 0
-                    ):
+                    if len(device_name) > 0 and len(text_of_alert) > 0:
 
-                        event_flag = ''.join([
-                            key for key in text_of_alert if key in [
-                                SYMBOL_CHECK,
-                                SYMBOL_WARNING,
-                                SYMBOL_DOWN_ARROW,
-                                SYMBOL_UP_ARROW,
+                        event_flag = "".join(
+                            [
+                                key
+                                for key in text_of_alert
+                                if key
+                                in [
+                                    SYMBOL_CHECK,
+                                    SYMBOL_WARNING,
+                                    SYMBOL_DOWN_ARROW,
+                                    SYMBOL_UP_ARROW,
+                                ]
                             ]
-                        ])
+                        )
                         if not len(event_flag):
                             return
 
@@ -104,11 +106,10 @@ class TelegramDecodePost(object):
                             return
 
                         event_text = f"{lines[0]}\n{lines[1]}"
-                        event_text_entities = None
                         try:
                             event_text_entities = [m.entities[0]]
                         except:
-                            pass
+                            event_text_entities = None
 
                         self.var_data = TelegramEvents(
                             device_name=device_name,
@@ -120,5 +121,5 @@ class TelegramDecodePost(object):
                             bot_name=bot_name,
                             event_type=event_type,
                             event_text=event_text,
-                            event_text_entities=event_text_entities
+                            event_text_entities=event_text_entities,
                         )

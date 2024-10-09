@@ -2,7 +2,14 @@ from TelegramId import TelegramId
 
 
 class TelegramEvents(TelegramId):
-    def __init__(self, event_type: int, event_text: str, event_flag: str = "", event_text_entities = None, **kwargs):
+    def __init__(
+        self,
+        event_type: int,
+        event_text: str,
+        event_flag: str = "",
+        event_text_entities=None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)  # Passa argumentos adicionais para a classe pai
         self.type = event_type
         self.flag = event_flag
