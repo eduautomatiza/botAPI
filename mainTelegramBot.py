@@ -13,7 +13,7 @@ from TelegramDecodePost import EVENT_COMMUNICATION
 # https://github.com/eternnoir/pyTelegramBotAPI
 
 # Substitua o token pelo seu token criado com o BotFather (https://t.me/BotFather)
-TELEGRAM_TOKEN = "6877160408:AAFQljDUT8Q6BqWBnCl_RarV26rGu1pc-L4"
+TELEGRAM_TOKEN = "TOKEN"
 
 # Adicione seu bot num canal de LOG.
 # Quando um sensor fizer alguma Evento o método process_post_event será chamado
