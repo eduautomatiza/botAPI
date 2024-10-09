@@ -19,27 +19,7 @@ EVENT_COMMUNICATION: int = 2
 class TelegramDecodePost(object):
     def __init__(self, m: types.Message):
         self.var_data = None
-        self.is_forward = None
-
-        if m.reply_to_message:
-            return
-        elif m.forward_from_chat and m.forward_signature:
-            time = m.forward_date
-            channel_id = m.forward_from_chat.id
-            channel_name = m.forward_from_chat.title
-            message_id = m.forward_from_message_id
-            bot_name = m.forward_signature
-            self.is_forward = True
-        elif m.author_signature:
-            time = m.date
-            channel_id = m.chat.id
-            channel_name = m.chat.title
-            message_id = m.message_id
-            bot_name = m.author_signature
-            self.is_forward = False
-        else:
-            return
-
+        
         # Splitting the text into lines
         lines = m.text.split("\n")
 
@@ -48,11 +28,11 @@ class TelegramDecodePost(object):
             device_name = match.group(1).strip()
             result = TelegramSetValues(
                 device_name=device_name,
-                time=time,
-                channel_id=channel_id,
-                channel_name=channel_name,
-                message_id=message_id,
-                bot_name=bot_name,
+                time=m.date,
+                channel_id=m.chat.id,
+                channel_name=m.chat.title,
+                message_id=m.message_id,
+                bot_name=m.author_signature,
             )
 
             log_values = lines[1:]
@@ -114,11 +94,11 @@ class TelegramDecodePost(object):
                         self.var_data = TelegramEvents(
                             device_name=device_name,
                             event_flag=event_flag,
-                            time=time,
-                            channel_id=channel_id,
-                            channel_name=channel_name,
-                            message_id=message_id,
-                            bot_name=bot_name,
+                            time=m.date,
+                            channel_id=m.chat.id,
+                            channel_name=m.chat.title,
+                            message_id=m.message_id,
+                            bot_name=m.author_signature,
                             event_type=event_type,
                             event_text=event_text,
                             event_text_entities=event_text_entities,

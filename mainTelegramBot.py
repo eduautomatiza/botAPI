@@ -40,15 +40,24 @@ def process_post_values(values: TelegramValues):
     print(f"Valores de sensores recebidos:\n{values}")
 
 
-@bot.channel_post_handler(func=lambda m: m.author_signature is not None)
+def filter_direct_channel_text_signed(m: types.Message) -> bool:
+    return (
+        m.reply_to_message is None
+        and m.forward_from_chat is None
+        and m.author_signature is not None
+        and m.content_type == "text"
+        and m.chat.type == "channel"
+    )
+
+
+@bot.channel_post_handler(func=filter_direct_channel_text_signed)
 def handle_channel_post(m: types.Message):
 
     message = TelegramDecodePost(m)
-    if message.is_forward is False:
-        if isinstance(message.var_data, TelegramValues):
-            process_post_values(message.var_data)
-        elif isinstance(message.var_data, TelegramEvents):
-            process_post_event(message.var_data)
+    if isinstance(message.var_data, TelegramValues):
+        process_post_values(message.var_data)
+    elif isinstance(message.var_data, TelegramEvents):
+        process_post_event(message.var_data)
 
 
 bot.infinity_polling(skip_pending=False)
