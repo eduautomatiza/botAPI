@@ -26,17 +26,34 @@ bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
 
 
 def process_post_event(event: Events):
+    """
+    Processa eventos recebidos do canal do Telegram.
+
+    Args:
+        event (Events): Objeto que representa um evento de sensor.
+
+    Eventos:
+        - EVENT_LEVEL: Evento relacionado ao nível de algum parâmetro.
+        - EVENT_COMMUNICATION: Evento relacionado à comunicação de algum sensor.
+
+    A função imprime detalhes do evento com base no seu tipo.
+    """
     if event.type == EVENT_LEVEL:
         print(f"Evento de nível:\n{event}")
-
     elif event.type == EVENT_COMMUNICATION:
         print(f"Evento de comunicação:\n{event}")
-
     else:
         print(f"Evento desconhecido:\n{event}")
 
-
 def process_post_values(values: Values):
+    """
+    Processa valores de sensores recebidos do canal do Telegram.
+
+    Args:
+        values (Values): Objeto que representa os valores dos sensores.
+
+    A função imprime os valores dos sensores recebidos.
+    """
     print(f"Valores de sensores recebidos:\n{values}")
 
 
