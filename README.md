@@ -8,8 +8,6 @@ Este projeto implementa um bot do Telegram utilizando a biblioteca `pyTelegramBo
 - [Configuração](#configuração)
 - [Uso](#uso)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## Instalação
 
