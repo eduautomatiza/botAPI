@@ -60,7 +60,7 @@ Este projeto implementa um bot do Telegram utilizando a biblioteca `pyTelegramBo
 
 ### Configure o Token
 
-No arquivo `mainTelegramBot.py`, substitua a variável `TELEGRAM_TOKEN` pelo token obtido:
+No arquivo `main.py`, substitua a variável `TELEGRAM_TOKEN` pelo token obtido:
 
 ```python
 TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
