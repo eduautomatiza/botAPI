@@ -1,7 +1,7 @@
-from TelegramValues import TelegramValues
+from Sensorlog.Values import Values
 
 
-class TelegramSetValues(TelegramValues):
+class SetValues(Values):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.__translate = {

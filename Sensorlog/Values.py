@@ -1,7 +1,7 @@
-from TelegramId import TelegramId
+from Sensorlog.Id import Id
 
 
-class TelegramValues(TelegramId):
+class Values(Id):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)  # Passing additional arguments to the parent class
         self.level: float = None

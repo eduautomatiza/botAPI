@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 
-class TelegramId:
+class Id:
     def __init__(
         self,
         time: Optional[datetime | int] = datetime.now(),

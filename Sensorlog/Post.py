@@ -1,8 +1,8 @@
 import re
 from telebot import types
-from TelegramValues import TelegramValues
-from TelegramSetValues import TelegramSetValues
-from TelegramEvents import TelegramEvents
+from Sensorlog.Values import Values
+from Sensorlog.SetValues import SetValues
+from Sensorlog.Events import Events
 
 
 SYMBOL_CHECK: str = "\u2705"  # CHECK MARK
@@ -16,7 +16,7 @@ EVENT_LEVEL: int = 1
 EVENT_COMMUNICATION: int = 2
 
 
-class TelegramDecodePost(object):
+class Decode(object):
     def __init__(self, m: types.Message):
         self.var_data = None
         
@@ -26,7 +26,7 @@ class TelegramDecodePost(object):
         match = re.search(r'Nome:\s*"([^"]+)"', lines[0])
         if match:
             device_name = match.group(1).strip()
-            result = TelegramSetValues(
+            result = SetValues(
                 device_name=device_name,
                 time=m.date,
                 channel_id=m.chat.id,
@@ -91,7 +91,7 @@ class TelegramDecodePost(object):
                         except:
                             event_text_entities = None
 
-                        self.var_data = TelegramEvents(
+                        self.var_data = Events(
                             device_name=device_name,
                             event_flag=event_flag,
                             time=m.date,

@@ -1,19 +1,19 @@
 import telebot
 from telebot import types
-from TelegramDecodePost import TelegramDecodePost
-from TelegramDecodePost import TelegramEvents
-from TelegramDecodePost import TelegramValues
-from TelegramDecodePost import EVENT_LEVEL
-from TelegramDecodePost import EVENT_COMMUNICATION
+from Sensorlog.Post import Decode
+from Sensorlog.Post import Events
+from Sensorlog.Post import Values
+from Sensorlog.Post import EVENT_LEVEL
+from Sensorlog.Post import EVENT_COMMUNICATION
 
 # Detalhes sobre a API do telegram
 # https://core.telegram.org/bots/api
 
 # Detalhes sobre a lib telebot
-# https://github.com/eternnoir/pyTelegramBotAPI
+# https://github.com/eternnoir/pyBotAPI
 
 # Substitua o token pelo seu token criado com o BotFather (https://t.me/BotFather)
-TELEGRAM_TOKEN = "TOKEN"
+TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
 
 # Adicione seu bot num canal de LOG.
 # Quando um sensor fizer alguma Evento o método process_post_event será chamado
@@ -25,7 +25,7 @@ TELEGRAM_TOKEN = "TOKEN"
 bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
 
 
-def process_post_event(event: TelegramEvents):
+def process_post_event(event: Events):
     if event.type == EVENT_LEVEL:
         print(f"Evento de nível:\n{event}")
 
@@ -36,7 +36,7 @@ def process_post_event(event: TelegramEvents):
         print(f"Evento desconhecido:\n{event}")
 
 
-def process_post_values(values: TelegramValues):
+def process_post_values(values: Values):
     print(f"Valores de sensores recebidos:\n{values}")
 
 
@@ -53,10 +53,10 @@ def filter_direct_channel_text_signed(m: types.Message) -> bool:
 @bot.channel_post_handler(func=filter_direct_channel_text_signed)
 def handle_channel_post(m: types.Message):
 
-    message = TelegramDecodePost(m)
-    if isinstance(message.var_data, TelegramValues):
+    message = Decode(m)
+    if isinstance(message.var_data, Values):
         process_post_values(message.var_data)
-    elif isinstance(message.var_data, TelegramEvents):
+    elif isinstance(message.var_data, Events):
         process_post_event(message.var_data)
 
 

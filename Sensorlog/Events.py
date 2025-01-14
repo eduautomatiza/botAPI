@@ -1,7 +1,7 @@
-from TelegramId import TelegramId
+from Sensorlog.Id import Id
 
 
-class TelegramEvents(TelegramId):
+class Events(Id):
     def __init__(
         self,
         event_type: int,

@@ -8,8 +8,6 @@ Este projeto implementa um bot do Telegram utilizando a biblioteca `pyTelegramBo
 - [Configuração](#configuração)
 - [Uso](#uso)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## Instalação
 
@@ -79,7 +77,7 @@ Adicione seu bot ao canal onde deseja receber as notificações de eventos e val
    Após configurar o token e adicionar o bot ao canal desejado, inicie o bot:
 
    ```bash
-   python mainTelegramBot.py
+   python main.py
    ```
 
 2. **Interaja com o bot:**
@@ -88,6 +86,6 @@ Adicione seu bot ao canal onde deseja receber as notificações de eventos e val
 
 ## Estrutura do Projeto
 
-- `mainTelegramBot.py`: Script principal que inicializa o bot e define os manipuladores de eventos.
-- `TelegramDecodePost.py`: Módulo que contém classes e funções para decodificar e processar eventos e valores recebidos.
+- `main.py`: Script principal que inicializa o bot e define os manipuladores de eventos.
+- `Post.py`: Módulo que contém classes e funções para decodificar e processar eventos e valores recebidos.
 - `requirements.txt`: Lista de dependências necessárias para o projeto.
