@@ -122,7 +122,6 @@ def handle_channel_post(m: types.Message):
     """
     logger.info("Iniciando manipulação da mensagem do canal")
     try:
-        logger.info(f"Mensagem recebida: {m}")
         message = Decode(m)
         if isinstance(message.var_data, Values):
             process_post_values(message.var_data)

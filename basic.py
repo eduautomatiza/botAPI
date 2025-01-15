@@ -1,7 +1,7 @@
 import telebot
 import logging
 from telebot import types
-from Sensorlog.Post import Decode, Events, Values
+from Sensorlog.Post import Decode, Events, Values, EVENT_LEVEL, EVENT_COMMUNICATION
 
 # Detalhes sobre a API do telegram
 # https://core.telegram.org/bots/api
@@ -40,7 +40,6 @@ def process_post_event(event: Events):
     """
     logger.info("Iniciando processamento do evento")
     try:
-        logger.info(f"Processando evento: {event}")
         if event.type == EVENT_LEVEL:
             print(f"Evento de nível:\n{event}")
         elif event.type == EVENT_COMMUNICATION:
@@ -63,7 +62,6 @@ def process_post_values(values: Values):
     """
     logger.info("Iniciando processamento dos valores")
     try:
-        logger.info(f"Processando valores: {values}")
         print(f"Valores de sensores recebidos:\n{values}")
     except Exception as e:
         logger.error(f"Erro ao processar valores: {e}")
@@ -99,7 +97,6 @@ def handle_channel_post(m: types.Message):
     """
     logger.info("Iniciando manipulação da mensagem do canal")
     try:
-        logger.info(f"Mensagem recebida: {m}")
         message = Decode(m)
         if isinstance(message.var_data, Values):
             process_post_values(message.var_data)
