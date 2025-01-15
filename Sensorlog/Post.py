@@ -86,10 +86,6 @@ class Decode(object):
                             return
 
                         event_text = f"{lines[0]}\n{lines[1]}"
-                        try:
-                            event_text_entities = [m.entities[0]]
-                        except:
-                            event_text_entities = None
 
                         self.var_data = Events(
                             device_name=device_name,
@@ -101,5 +97,4 @@ class Decode(object):
                             bot_name=m.author_signature,
                             event_type=event_type,
                             event_text=event_text,
-                            event_text_entities=event_text_entities,
                         )

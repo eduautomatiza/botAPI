@@ -7,14 +7,12 @@ class Events(Id):
         event_type: int,
         event_text: str,
         event_flag: str = "",
-        event_text_entities=None,
         **kwargs,
     ):
         super().__init__(**kwargs)  # Passa argumentos adicionais para a classe pai
         self.type = event_type
         self.flag = event_flag
         self.text = event_text
-        self.text_entities = event_text_entities
 
     def __str__(self):
         return (

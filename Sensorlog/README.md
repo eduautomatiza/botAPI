@@ -52,7 +52,6 @@ Events(
     event_type: int,
     event_text: str,
     event_flag: str = "",
-    event_text_entities=None,
     **kwargs
 )
 ```
