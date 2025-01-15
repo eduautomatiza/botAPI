@@ -52,7 +52,6 @@ Events(
     event_type: int,
     event_text: str,
     event_flag: str = "",
-    event_text_entities=None,
     **kwargs
 )
 ```
@@ -61,7 +60,6 @@ Events(
 - `type`: Tipo do evento (inteiro).
 - `flag`: Indicador do evento (string).
 - `text`: Texto descritivo do evento.
-- `text_entities`: Entidades associadas ao texto do evento.
 
 ### Métodos
 - `__str__()`: Inclui informações adicionais sobre o evento, além das propriedades herdadas.
