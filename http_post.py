@@ -1,10 +1,8 @@
 import telebot
 from telebot import types
-from Sensorlog.Post import Decode
-from Sensorlog.Post import Events
-from Sensorlog.Post import Values
-from Sensorlog.Post import EVENT_LEVEL
-from Sensorlog.Post import EVENT_COMMUNICATION
+from Sensorlog.Post import Decode, Events, Values, EVENT_LEVEL, EVENT_COMMUNICATION
+import requests
+import json
 
 # Detalhes sobre a API do telegram
 # https://core.telegram.org/bots/api
@@ -25,25 +23,33 @@ TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
 bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
 
 
+def send_post_request(url, data):
+    """
+    Envia uma solicitação POST para a URL especificada com os dados fornecidos.
+
+    Args:
+        url (str): A URL para onde a solicitação POST será enviada.
+        data (dict): Os dados a serem enviados na solicitação POST.
+
+    Returns:
+        requests.Response: A resposta da solicitação POST.
+    """
+    headers = {"Content-Type": "application/json"}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    return response
+
+
 def process_post_event(event: Events):
     """
     Processa eventos recebidos do canal do Telegram.
 
     Args:
         event (Events): Objeto que representa um evento de sensor.
-
-    Eventos:
-        - EVENT_LEVEL: Evento relacionado ao nível de algum parâmetro.
-        - EVENT_COMMUNICATION: Evento relacionado à comunicação de algum sensor.
-
-    A função imprime detalhes do evento com base no seu tipo.
     """
-    if event.type == EVENT_LEVEL:
-        print(f"Evento de nível:\n{event}")
-    elif event.type == EVENT_COMMUNICATION:
-        print(f"Evento de comunicação:\n{event}")
-    else:
-        print(f"Evento desconhecido:\n{event}")
+    url = "http://example.com/event"  # Substitua pela URL desejada
+    response = send_post_request(url, event.__dict__)
+    print(response)
+
 
 def process_post_values(values: Values):
     """
@@ -51,13 +57,22 @@ def process_post_values(values: Values):
 
     Args:
         values (Values): Objeto que representa os valores dos sensores.
-
-    A função imprime os valores dos sensores recebidos.
     """
-    print(f"Valores de sensores recebidos:\n{values}")
+    url = "http://example.com/values"  # Substitua pela URL desejada
+    response = send_post_request(url, values.__dict__)
+    print(response)
 
 
 def filter_direct_channel_text_signed(m: types.Message) -> bool:
+    """
+    Filtra mensagens de texto diretas assinadas em um canal.
+
+    Args:
+        m (types.Message): A mensagem recebida do canal do Telegram.
+
+    Returns:
+        bool: True se a mensagem atender aos critérios de filtro, False caso contrário.
+    """
     return (
         m.reply_to_message is None
         and m.forward_from_chat is None
@@ -69,7 +84,12 @@ def filter_direct_channel_text_signed(m: types.Message) -> bool:
 
 @bot.channel_post_handler(func=filter_direct_channel_text_signed)
 def handle_channel_post(m: types.Message):
+    """
+    Manipula postagens de canal filtradas.
 
+    Args:
+        m (types.Message): A mensagem recebida do canal do Telegram.
+    """
     message = Decode(m)
     if isinstance(message.var_data, Values):
         process_post_values(message.var_data)

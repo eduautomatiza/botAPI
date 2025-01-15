@@ -6,8 +6,8 @@ Este projeto implementa um bot do Telegram utilizando a biblioteca `pyTelegramBo
 
 - [Instalação](#instalação)
 - [Configuração](#configuração)
-- [Uso](#uso)
 - [Estrutura do Projeto](#estrutura-do-projeto)
+- [Exemplos de Uso](#exemplos-de-uso)
 
 ## Instalação
 
@@ -58,34 +58,65 @@ Este projeto implementa um bot do Telegram utilizando a biblioteca `pyTelegramBo
    - Não compartilhe seu token publicamente.
    - Caso suspeite que ele foi comprometido, use o comando `/revoke` no BotFather para gerar um novo token.
 
-### Configure o Token
-
-No arquivo `main.py`, substitua a variável `TELEGRAM_TOKEN` pelo token obtido:
-
-```python
-TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
-```
-
 ### Adicione o Bot a um Canal de Log
 
 Adicione seu bot ao canal onde deseja receber as notificações de eventos e valores dos sensores.
 
-## Uso
+## Estrutura do Projeto
 
-1. **Execute o bot:**
+- `basic.py`: Exemplo básico que processa eventos e valores de sensores recebidos do canal do Telegram e imprime os detalhes no console.
+- `http_post.py`: Exemplo que envia eventos e valores de sensores recebidos do canal do Telegram para uma URL especificada usando solicitações HTTP POST.
+- `SQL_insert.py`: Exemplo que insere eventos e valores de sensores recebidos do canal do Telegram em um banco de dados SQLite.
+- `Sensorlog`: Pasta que contém módulos para decodificação e processamento de eventos e valores de sensores.
+- `requirements.txt`: Lista de dependências necessárias para o projeto.
 
-   Após configurar o token e adicionar o bot ao canal desejado, inicie o bot:
+
+## Exemplos de Uso
+
+### Exemplo Básico
+
+O arquivo [basic.py](basic.py) processa eventos e valores de sensores recebidos do canal do Telegram e imprime os detalhes no console.
+
+Para usar este exemplo:
+
+1. Configure o token no arquivo `basic.py` substituindo `"SEU_TOKEN_AQUI"` pelo seu token do Telegram.
+2. Execute o script:
 
    ```bash
-   python main.py
+   python basic.py
    ```
+
+### Exemplo HTTP POST
+
+O arquivo [http_post.py](http_post.py) envia eventos e valores de sensores recebidos do canal do Telegram para uma URL especificada usando solicitações HTTP POST.
+
+Para usar este exemplo:
+
+1. Configure o token no arquivo `http_post.py` substituindo `"SEU_TOKEN_AQUI"` pelo seu token do Telegram.
+2. Substitua as URLs de exemplo (`http://example.com/event` e `http://example.com/values`) pelas URLs desejadas.
+3. Execute o script:
+
+   ```bash
+   python http_post.py
+   ```
+
+### Exemplo de Inserção em Banco de Dados SQLite
+
+O arquivo [SQL_insert.py](SQL_insert.py) insere eventos e valores de sensores recebidos do canal do Telegram em um banco de dados SQLite.
+
+Para usar este exemplo:
+
+1. Configure o token no arquivo `SQL_insert.py` substituindo `"SEU_TOKEN_AQUI"` pelo seu token do Telegram.
+2. Configure as tabelas `events` e `values` no banco de dados SQLite conforme necessário.
+3. Execute o script:
+
+
+   ```bash
+   python SQL_insert.py
+   ```
+
+Cada exemplo demonstra diferentes maneiras de processar e utilizar os dados recebidos pelo bot.
 
 2. **Interaja com o bot:**
 
    O bot estará ativo e pronto para processar eventos e valores de sensores conforme implementado.
-
-## Estrutura do Projeto
-
-- `main.py`: Script principal que inicializa o bot e define os manipuladores de eventos.
-- `Post.py`: Módulo que contém classes e funções para decodificar e processar eventos e valores recebidos.
-- `requirements.txt`: Lista de dependências necessárias para o projeto.
