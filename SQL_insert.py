@@ -1,13 +1,18 @@
 import telebot
-from telebot import types
-from Sensorlog.Post import Decode, Events, Values, EVENT_LEVEL, EVENT_COMMUNICATION
 import sqlite3
+import logging
+from telebot import types
+from Sensorlog.Post import Decode, Events, Values
 
 # Detalhes sobre a API do telegram
 # https://core.telegram.org/bots/api
 
 # Detalhes sobre a lib telebot
 # https://github.com/eternnoir/pyBotAPI
+
+# Configuração do logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Substitua o token pelo seu token criado com o BotFather (https://t.me/BotFather)
 TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
@@ -17,7 +22,6 @@ TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
 # com o evento de notificação do sensor.
 # Quando uma publicação de valores de sensor for publicada,
 # o método process_post_values será chamado com os valores dos sensores
-
 
 bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
 
@@ -33,16 +37,22 @@ def insert_into_db(table, data):
     Returns:
         None
     """
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
+    logger.info("Iniciando inserção no banco de dados")
+    try:
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
 
-    columns = ", ".join(data.keys())
-    placeholders = ", ".join("?" * len(data))
-    sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
+        columns = ", ".join(data.keys())
+        placeholders = ", ".join("?" * len(data))
+        sql = f"INSERT INTO {table} ({columns}) VALUES ({placeholders})"
 
-    cursor.execute(sql, tuple(data.values()))
-    conn.commit()
-    conn.close()
+        cursor.execute(sql, tuple(data.values()))
+        conn.commit()
+        conn.close()
+        logger.info(f"Dados inseridos na tabela {table}: {data}")
+    except Exception as e:
+        logger.error(f"Erro ao inserir dados no banco de dados: {e}")
+    logger.info("Finalizando inserção no banco de dados")
 
 
 def process_post_event(event: Events):
@@ -54,7 +64,13 @@ def process_post_event(event: Events):
 
     A função insere os dados do evento na tabela 'events' do banco de dados.
     """
-    insert_into_db("events", event.__dict__)
+    logger.info("Iniciando processamento do evento")
+    try:
+        logger.info(f"Processando evento: {event}")
+        insert_into_db("events", event.__dict__)
+    except Exception as e:
+        logger.error(f"Erro ao processar evento: {e}")
+    logger.info("Finalizando processamento do evento")
 
 
 def process_post_values(values: Values):
@@ -66,7 +82,13 @@ def process_post_values(values: Values):
 
     A função insere os valores dos sensores na tabela 'values' do banco de dados.
     """
-    insert_into_db("values", values.__dict__)
+    logger.info("Iniciando processamento dos valores")
+    try:
+        logger.info(f"Processando valores: {values}")
+        insert_into_db("values", values.__dict__)
+    except Exception as e:
+        logger.error(f"Erro ao processar valores: {e}")
+    logger.info("Finalizando processamento dos valores")
 
 
 def filter_direct_channel_text_signed(m: types.Message) -> bool:
@@ -98,11 +120,18 @@ def handle_channel_post(m: types.Message):
 
     A função decodifica a mensagem e processa os dados de eventos ou valores dos sensores.
     """
-    message = Decode(m)
-    if isinstance(message.var_data, Values):
-        process_post_values(message.var_data)
-    elif isinstance(message.var_data, Events):
-        process_post_event(message.var_data)
+    logger.info("Iniciando manipulação da mensagem do canal")
+    try:
+        logger.info(f"Mensagem recebida: {m}")
+        message = Decode(m)
+        if isinstance(message.var_data, Values):
+            process_post_values(message.var_data)
+        elif isinstance(message.var_data, Events):
+            process_post_event(message.var_data)
+    except Exception as e:
+        logger.error(f"Erro ao manipular mensagem do canal: {e}")
+    logger.info("Finalizando manipulação da mensagem do canal")
 
 
+logger.info("Bot iniciado. Aguardando mensagens do canal")
 bot.infinity_polling(skip_pending=False)
