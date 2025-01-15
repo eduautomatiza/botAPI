@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 # Substitua o token pelo seu token criado com o BotFather (https://t.me/BotFather)
 TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
+DB_NAME = "sensordata.db"
 
 # Adicione seu bot num canal de LOG.
 # Quando um sensor fizer alguma Evento o método process_post_event será chamado
@@ -39,7 +40,7 @@ def insert_into_db(table, data):
     """
     logger.info("Iniciando inserção no banco de dados")
     try:
-        conn = sqlite3.connect("database.db")
+        conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
 
         columns = ", ".join(data.keys())

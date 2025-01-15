@@ -1,6 +1,5 @@
 import telebot
 import requests
-import json
 import logging
 from telebot import types
 from Sensorlog.Post import Decode, Events, Values
@@ -17,7 +16,8 @@ logger = logging.getLogger(__name__)
 
 # Substitua o token pelo seu token criado com o BotFather (https://t.me/BotFather)
 TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
-
+EVENT_URL = "http://example.com/event" # Substitua pela URL desejada
+VALUES_URL = "http://example.com/values" # Substitua pela URL desejada
 # Adicione seu bot num canal de LOG.
 # Quando um sensor fizer alguma Evento o método process_post_event será chamado
 # com o evento de notificação do sensor.
@@ -27,13 +27,13 @@ TELEGRAM_TOKEN = "SEU_TOKEN_AQUI"
 bot = telebot.TeleBot(token=TELEGRAM_TOKEN)
 
 
-def send_post_request(url, data):
+def send_post_request(url, json):
     """
     Envia uma solicitação POST para a URL especificada com os dados fornecidos.
 
     Args:
         url (str): A URL para onde a solicitação POST será enviada.
-        data (dict): Os dados a serem enviados na solicitação POST.
+        json (str): Os dados a serem enviados na solicitação POST.
 
     Returns:
         requests.Response: A resposta da solicitação POST.
@@ -41,8 +41,8 @@ def send_post_request(url, data):
     logger.info("Iniciando envio de solicitação POST")
     try:
         headers = {"Content-Type": "application/json"}
-        response = requests.post(url, data=json.dumps(data), headers=headers)
-        logger.info(f"Solicitação POST enviada para {url} com dados {data}")
+        response = requests.post(url, data=json, headers=headers)
+        logger.info(f"Solicitação POST enviada para {url} com dados {json}")
         return response
     except Exception as e:
         logger.error(f"Erro ao enviar solicitação POST: {e}")
@@ -58,9 +58,9 @@ def process_post_event(event: Events):
     """
     logger.info("Iniciando processamento do evento")
     try:
-        url = "http://example.com/event"  # Substitua pela URL desejada
+        url = EVENT_URL
         logger.info(f"Enviando evento para {url}: {event}")
-        response = send_post_request(url, event.__dict__)
+        response = send_post_request(url, event.to_json())
         logger.info(f"Resposta do servidor: {response.status_code}")
         print(response)
     except Exception as e:
@@ -77,9 +77,9 @@ def process_post_values(values: Values):
     """
     logger.info("Iniciando processamento dos valores")
     try:
-        url = "http://example.com/values"  # Substitua pela URL desejada
+        url = VALUES_URL
         logger.info(f"Enviando valores para {url}: {values}")
-        response = send_post_request(url, values.__dict__)
+        response = send_post_request(url, values.to_json())
         logger.info(f"Resposta do servidor: {response.status_code}")
         print(response)
     except Exception as e:
