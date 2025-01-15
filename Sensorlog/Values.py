@@ -35,3 +35,25 @@ class Values(Id):
             f"  speed1: {self.speed1}\n"
             f"  speed2: {self.speed2}"
         )
+
+    def to_json(self):
+        # Chama o to_json da classe pai (Id) e adiciona seus próprios atributos
+        data = super().to_json()  # Obtém os atributos da classe pai
+        data.update({
+            "values" : {
+                "level": self.level,
+                "raw_level": self.raw_level,
+                "distance": self.distance,
+                "t0": self.t0,
+                "t1": self.t1,
+                "v0": self.v0,
+                "v1": self.v1,
+                "snr": self.snr,
+                "rssi": self.rssi,
+                "snr_gw": self.snr_gw,
+                "rssi_gw": self.rssi_gw,
+                "speed1": self.speed1,
+                "speed2": self.speed2,
+            }
+        })
+        return data

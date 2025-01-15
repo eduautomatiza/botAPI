@@ -63,3 +63,17 @@ class Id:
             f"  device_id: {self.device_id}\n"
             f"  device_name: {self.device_name}\n"
         )
+
+    def to_json(self):
+        # Chama o to_json da classe pai (Id) e adiciona seus próprios atributos
+        return {
+            "message": {
+                "time_s": int(self.time.timestamp()),
+                "timezone_offset_s": int(self.timezone_offset.total_seconds()),
+                "channel_id": self.channel_id,
+                "channel_name": self.channel_name,
+                "message_id": self.message_id,
+                "bot": self.bot_name,
+                "device": self.device_name,
+            }
+        }

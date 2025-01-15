@@ -24,3 +24,15 @@ class Events(Id):
             f"  text: {self.text}\n"
             f"  text_entities: {self.text_entities}\n"
         )
+
+    def to_json(self):
+        # Chama o to_json da classe pai (Id) e adiciona seus próprios atributos
+        data = super().to_json()  # Obtém os atributos da classe pai
+        data.update({
+            "event": {
+                "type": self.type,
+                "flag": self.flag,
+                "text": self.text,
+            }
+        })
+        return data
