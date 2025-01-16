@@ -40,8 +40,7 @@ def send_post_request(url, json):
     """
     logger.info("Iniciando envio de solicitação POST")
     try:
-        headers = {"Content-Type": "application/json"}
-        response = requests.post(url, data=json, headers=headers)
+        response = requests.post(url, json=json)
         logger.info(f"Solicitação POST enviada para {url} com dados {json}")
         return response
     except Exception as e:
