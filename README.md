@@ -80,8 +80,8 @@ Antes de começar, certifique-se de ter:
 2. **Crie um novo bot:**
    - Envie o comando `/newbot` no chat com o BotFather.
    - Siga as instruções fornecidas para:
-     - **Definir um nome para o seu bot**: Por exemplo, `MeuBotLegal`.
-     - **Definir um nome de usuário para o bot**: Deve terminar com `bot`, por exemplo, `MeuBotLegal_bot`.
+     - **Definir um nome para o seu bot**: Por exemplo, `integrador_sensorlog`.
+     - **Definir um nome de usuário para o bot**: Deve terminar com `bot`, por exemplo, `integrador_sensorlog_bot`.
 
 3. **Obtenha o token do bot:**
    - Após configurar o nome e o nome de usuário, o BotFather fornecerá um token de API no formato:
