@@ -38,6 +38,7 @@ Id(
 ### Métodos
 - Propriedades com getters e setters para `time` e `timezone_offset`.
 - `__str__()`: Retorna uma representação textual dos atributos.
+- `to_json()`: Converte o objeto `Id` para uma string JSON.
 
 ---
 
@@ -63,6 +64,7 @@ Events(
 
 ### Métodos
 - `__str__()`: Inclui informações adicionais sobre o evento, além das propriedades herdadas.
+- `to_json()`: Converte o objeto `Events` para uma string JSON.
 
 ---
 
@@ -82,6 +84,7 @@ Values(**kwargs)
 
 ### Métodos
 - `__str__()`: Retorna uma representação detalhada das medições e atributos.
+- `to_json()`: Converte o objeto `Values` para uma string JSON.
 
 ---
 
