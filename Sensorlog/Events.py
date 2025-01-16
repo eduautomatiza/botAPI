@@ -19,7 +19,7 @@ class Events(Id):
             f"{super().__str__()}"
             f"  type: {self.type}\n"
             f"  flag: {self.flag}\n"
-            f"  text: {self.text}\n"
+            f"  text: {self.text}"
         )
 
     def to_json(self):
