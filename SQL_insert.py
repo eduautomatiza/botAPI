@@ -68,7 +68,18 @@ def process_post_event(event: Events):
     logger.info("Iniciando processamento do evento")
     try:
         logger.info(f"Processando evento: {event}")
-        insert_into_db("events", event.__dict__)
+        data = {
+            "time": event.time,
+            "timezone_offset": event.timezone_offset.total_seconds(),
+            "channel_id": event.channel_id,
+            "channel_name": event.channel_name,
+            "bot_name": event.bot_name,
+            "device_name": event.device_name,
+            "type": event.type,
+            "flag": event.flag,
+            "text": event.text,
+        }
+        insert_into_db("events", data)
     except Exception as e:
         logger.error(f"Erro ao processar evento: {e}")
     logger.info("Finalizando processamento do evento")
@@ -81,12 +92,31 @@ def process_post_values(values: Values):
     Args:
         values (Values): Objeto que representa os valores dos sensores.
 
-    A função insere os valores dos sensores na tabela 'values' do banco de dados.
+    A função insere os valores dos sensores na tabela 'sensor_values' do banco de dados.
     """
     logger.info("Iniciando processamento dos valores")
     try:
         logger.info(f"Processando valores: {values}")
-        insert_into_db("values", values.__dict__)
+        data = {
+            "time": values.time,
+            "timezone_offset": values.timezone_offset.total_seconds(),
+            "channel_id": values.channel_id,
+            "channel_name": values.channel_name,
+            "bot_name": values.bot_name,
+            "device_name": values.device_name,
+            "level": values.level,
+            "raw_level": values.raw_level,
+            "distance": values.distance,
+            "t0": values.t0,
+            "t1": values.t1,
+            "v0": values.v0,
+            "v1": values.v1,
+            "snr": values.snr,
+            "rssi": values.rssi,
+            "snr_gw": values.snr_gw,
+            "rssi_gw": values.rssi_gw,
+        }
+        insert_into_db("sensor_values", data)
     except Exception as e:
         logger.error(f"Erro ao processar valores: {e}")
     logger.info("Finalizando processamento dos valores")

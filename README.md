@@ -134,10 +134,16 @@ Adicione seu bot a um canal de LOG de onde deseja receber os dados dos sensores 
    DB_NAME = "sensordata.db"
    ```
 
-2. Execute o script:
+2. Configure o banco de dados (**apenas na primeira vez** que for usar SQL_insert.py).
+   Execute o script create_db.py para criar a base de dados e as tabelas necessárias:
+   ```bash
+   python create_db.py
+   ```
+
+3. Execute o script:
    ```bash
    python SQL_insert.py
    ```
 
-3. Os dados serão salvos no banco SQLite.
+4. Os dados serão salvos no banco SQLite.
 
