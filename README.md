@@ -1,6 +1,6 @@
 # 🌐 BotAPI
 
-Bem-vindo ao **BotAPI**! Este projeto foi desenvolvido para integrar, de forma rápida e fácil, os sensores da [sensor.log](https://sensor.log.br) com outros sistemas.
+Bem-vindo ao **BotAPI**! Este projeto foi desenvolvido para integrar, de forma rápida e fácil, os sensores da [sensor.log](https://sensor.log.br) com outros sistemas.  
 A integração com o sistema de [sensor.log](https://sensor.log.br) é feita através do uso da **API do Telegram**, e nesse repositório são disponibilizados exemplos práticos para envio desses dados para outras aplicações.
 
 ---
@@ -18,6 +18,7 @@ A integração com o sistema de [sensor.log](https://sensor.log.br) é feita atr
   - [▶️ Exemplo Básico](#▶️-exemplo-básico)
   - [🌐 Exemplo HTTP POST](#🌐-exemplo-http-post)
   - [💾 Exemplo de Inserção em Banco de Dados SQLite](#💾-exemplo-de-inserção-em-banco-de-dados-sqlite)
+- [📜 Documentação Oficial da API do Telegram](#📜-documentação-oficial-da-api-do-telegram)
 - [🤝 Contribuição](#🤝-contribuição)
 - [📜 Licença](#📜-licença)
 
@@ -160,6 +161,13 @@ Adicione seu bot a um canal de LOG de onde deseja receber os dados dos sensores.
    ```
 
 4. Os dados serão salvos no banco SQLite.
+
+---
+
+## 📜 Documentação Oficial da API do Telegram
+
+Para mais informações sobre as funcionalidades da API do Telegram, consulte a documentação oficial:  
+[Telegram Bot API Documentation](https://core.telegram.org/bots/api)
 
 ---
 
